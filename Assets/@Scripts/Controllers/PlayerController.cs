@@ -13,9 +13,21 @@ public class PlayerController : MonoBehaviour
         set { _moveDir = value.normalized; }
     }
 
+    void OnDestroy()
+    {
+        if(Managers.Game != null)
+            Managers.Game.OnMoveDirChanged -= HandleOnMoveChanged;
+    }
+
     void Start()
     {
-        
+        Managers.Game.OnMoveDirChanged -= HandleOnMoveChanged;
+        Managers.Game.OnMoveDirChanged += HandleOnMoveChanged;
+    }
+
+    void HandleOnMoveChanged(Vector2 dir)
+    {
+        _moveDir = dir;
     }
 
     void Update()
@@ -25,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    // Simulator ¿¡¼­´Â ¾È¸ÔÈû
     void UpdateInput()
     {
         Vector2 moveDir = Vector2.zero;
@@ -43,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
-        _moveDir = Managers.moveDir;
+        //_moveDir = Managers.Game.MoveDir;
         Vector3 dir = _moveDir * _speed * Time.deltaTime;
         transform.position += dir;
     }
