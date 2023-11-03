@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : CreatureController
 {
     Vector2 _moveDir = Vector2.zero;
     float _speed = 5f;
@@ -19,10 +19,15 @@ public class PlayerController : MonoBehaviour
             Managers.Game.OnMoveDirChanged -= HandleOnMoveChanged;
     }
 
-    void Start()
+    public override bool Init()
     {
+        if (base.Init() == false)
+            return false;
+
         Managers.Game.OnMoveDirChanged -= HandleOnMoveChanged;
         Managers.Game.OnMoveDirChanged += HandleOnMoveChanged;
+
+        return true;
     }
 
     void HandleOnMoveChanged(Vector2 dir)
@@ -59,6 +64,24 @@ public class PlayerController : MonoBehaviour
         //_moveDir = Managers.Game.MoveDir;
         Vector3 dir = _moveDir * _speed * Time.deltaTime;
         transform.position += dir;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        MonsterController target = collision.gameObject.GetComponent<MonsterController>();
+        if (target == null)
+            return;
+    }
+
+    public override void OnDamage(BaseController attacker, int damage)
+    {
+        base.OnDamage(attacker, damage);
+
+        Debug.Log($"OnDamaged ! {Hp}");
+
+        // Temp
+        CreatureController cc = attacker as CreatureController;
+        cc?.OnDamage(this, 10000);
     }
 
 }

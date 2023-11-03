@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Define 
+public static class Define 
 {
    public enum Scene
     {
@@ -16,4 +16,13 @@ public class Define
         Bgm,
         Effect,
     }
+
+    public enum ObejctType
+    {
+        Player,
+        Monster,
+        Projectile,
+        Env,
+    }
+
 }

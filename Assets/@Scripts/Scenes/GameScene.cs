@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class GameScene : MonoBehaviour
 {
-    GameObject _snake;
-    GameObject _slime;
-    GameObject _goblin;
-    GameObject _joystick;
-
     void Start()
     {
         //Resources.Load<GameObject>("Prefabs/Snake_01");
 
         Managers.Resource.LoadAllAsync<GameObject>("Prefabs", (key, count, totalCount) =>
         {
-            Debug.Log($"{key}, {count}/{totalCount}");
+            //Debug.Log($"{key}, {count}/{totalCount}");
             if(count == totalCount)
             {
                 StartLoaded();
@@ -26,10 +21,35 @@ public class GameScene : MonoBehaviour
     
     void StartLoaded()
     {
-        GameObject prefab = Managers.Resource.Load<GameObject>("Slime_01.prefab");
-        GameObject go = new GameObject() { name = "@Monsters" };
-        _slime = Managers.Resource.Instantiate("Slime_01.prefab", go.transform);
-        Camera.main.GetComponent<CameraController>().target = _slime;
+        var player = Managers.Object.Spawn<PlayerController>();
+
+        for (int i = 0; i < 10; i++)
+        {
+            var mc = Managers.Object.Spawn<MonsterController>(Random.Range(0, 2));
+            mc.transform.position = new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
+        }
+
+        var joystick = Managers.Resource.Instantiate("UI_Joystick.prefab");
+        joystick.name = "@UI_Joystick";
+
+        var map = Managers.Resource.Instantiate("Map.prefab");
+        map.name = "@Map";
+        Camera.main.GetComponent<CameraController>().target = player.gameObject;
+    }
+
+    void StartLoaded2()
+    {
+        var player = Managers.Resource.Instantiate("Slime_01.prefab");
+        player.AddComponent<PlayerController>();
+
+        var snake = Managers.Resource.Instantiate("Snake_01.prefab");
+        var goblin = Managers.Resource.Instantiate("Gobline_01.prefab");
+        var joystick = Managers.Resource.Instantiate("UI_Joystick.prefab");
+        joystick.name = "@UI_Joystick";
+
+        var map = Managers.Resource.Instantiate("Map.prefab");
+        map.name = "@Map";
+        Camera.main.GetComponent<CameraController>().target = player;
 
         //Managers.Resource.LoadAsync<GameObject>("Snake_01", (go) =>
         //{
