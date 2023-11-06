@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : CreatureController
 {
     Vector2 _moveDir = Vector2.zero;
-    float _speed = 5f;
 
     public Vector2 MoveDir
     {
@@ -77,7 +76,7 @@ public class PlayerController : CreatureController
     {
         base.OnDamage(attacker, damage);
 
-        Debug.Log($"OnDamaged ! {Hp}");
+        //Debug.Log($"OnDamaged ! {Hp}");
 
         // Temp
         CreatureController cc = attacker as CreatureController;

@@ -34,6 +34,9 @@ public class MonsterController : CreatureController
         if (target == null)
             return;
 
+        if (target.isActiveAndEnabled == false)
+            return;
+
         if (_coDotDamage != null)
             StopCoroutine(_coDotDamage);
 
