@@ -6,14 +6,19 @@ public class GameScene : MonoBehaviour
 {
     void Start()
     {
-        //Resources.Load<GameObject>("Prefabs/Snake_01");
 
         Managers.Resource.LoadAllAsync<GameObject>("Prefabs", (key, count, totalCount) =>
         {
-            //Debug.Log($"{key}, {count}/{totalCount}");
+            Debug.Log($"{key}, {count}/{totalCount}");
             if(count == totalCount)
             {
-                StartLoaded();
+                Managers.Resource.LoadAllAsync<TextAsset>("Data", (key3, count3, totalCount3) =>
+                {
+                    if (count3 == totalCount3)
+                    {
+                        StartLoaded();
+                    }
+                });
             }
         });
 
@@ -38,6 +43,13 @@ public class GameScene : MonoBehaviour
         var map = Managers.Resource.Instantiate("Map.prefab");
         map.name = "@Map";
         Camera.main.GetComponent<CameraController>().target = player.gameObject;
+
+        // Data Test
+        Managers.Data.Init();
+        foreach(var playerData in Managers.Data.PlayerDic.Values)
+        {
+            Debug.Log($"Lv : {playerData.level}, Hp : {playerData.maxHp}");
+        }
     }
 
     void StartLoaded2()
