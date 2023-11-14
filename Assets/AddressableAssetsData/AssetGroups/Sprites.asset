@@ -10,30 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Prefabs
+  m_Name: Sprites
   m_EditorClassIdentifier: 
-  m_GroupName: Prefabs
+  m_GroupName: Sprites
   m_Data:
     m_SerializedData: []
-  m_GUID: 078990a8d147c7f4ea1cc5bb50f8ac72
+  m_GUID: 0e6cf5ff07e6d8449a7d9a17f44b90ba
   m_SerializeEntries:
-  - m_GUID: e0ba4f7a031df824d8510df13d3e12f1
-    m_Address: Slime_01.prefab
+  - m_GUID: f7c8a15954abae545a07ef2671957163
+    m_Address: EXPGem_01.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
-  - m_GUID: 266ca45051be3734f84aecbd02390102
-    m_Address: Snake_01.prefab
+  - m_GUID: b13610c084afb8f448637942d7b60cbd
+    m_Address: EXPGem_02.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
-  - m_GUID: e9fcdd581e729bd44ad9e434b7ee2939
-    m_Address: Goblin_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-  - m_GUID: 4d4d65eda616bdd4684df37041533fbd
-    m_Address: EXPGem.prefab
+  - m_GUID: b8c238b0fbe3d9644906c51b98e2ee2a
+    m_Address: EXPGem_03.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -41,5 +36,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: ff0252742750b9b40a70474eeb2d471c, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 82dd791866ff0674888f2ffd83892270, type: 2}
-    - {fileID: 11400000, guid: 8d5722588a8f42f4d9561b71552c1e0f, type: 2}
+    - {fileID: 11400000, guid: ee349d6ecbb8b7243b3e0f5e831fe47d, type: 2}
+    - {fileID: 11400000, guid: d06ad41743160a649a48e4c62ab0b101, type: 2}

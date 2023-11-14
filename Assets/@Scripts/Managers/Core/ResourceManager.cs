@@ -17,7 +17,7 @@ public class ResourceManager
         return null;
     }
 
-    public GameObject Instantiate(string key, Transform parent = null, bool pooing = false)
+    public GameObject Instantiate(string key, Transform parent = null, bool pooling = false)
     {
         GameObject prefab = Load<GameObject>($"{key}");
         if (prefab == null)
@@ -26,7 +26,7 @@ public class ResourceManager
             return null;
         }
 
-        if (pooing)
+        if (pooling)
             return Managers.Pool.Pop(prefab);
 
         GameObject go = Object.Instantiate(prefab, parent);
@@ -54,7 +54,11 @@ public class ResourceManager
             return;
         }
 
-        var asyncOperation = Addressables.LoadAssetAsync<T>(key);
+        string loadKey = key;
+        if (key.Contains(".sprite"))
+            loadKey = $"{key}[{key.Replace(".sprite", "")}]";
+
+        var asyncOperation = Addressables.LoadAssetAsync<T>(loadKey);
         asyncOperation.Completed += (op) =>
         {
             _resources.Add(key, op.Result);

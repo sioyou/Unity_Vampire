@@ -22,13 +22,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - UI Prefabs
-    - Prefabs
+    - PreLoad
   - m_GUID: 9dea5e09fd94f684bbfae381ab476bc8
     m_Address: Map.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - UI Prefabs
-    - Prefabs
+    - PreLoad
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ff0252742750b9b40a70474eeb2d471c, type: 2}
   m_SchemaSet:
