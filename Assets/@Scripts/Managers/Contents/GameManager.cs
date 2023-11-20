@@ -7,6 +7,12 @@ public class GameManager
 {
     Vector2 _moveDir;
 
+    #region 재화
+    public int Gold { get; set; }
+    public int Gem { get; set; }
+    #endregion
+
+    #region 이동
     public event Action<Vector2> OnMoveDirChanged;
 
     public Vector2 MoveDir
@@ -18,5 +24,6 @@ public class GameManager
             OnMoveDirChanged?.Invoke(_moveDir);
         }
     }
+    #endregion
 
 }

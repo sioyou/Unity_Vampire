@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerController : CreatureController
 {
     Vector2 _moveDir = Vector2.zero;
+
+    float EnvCollectDist { get; set; } = 1.0f;
 
     public Vector2 MoveDir
     {
@@ -38,7 +41,7 @@ public class PlayerController : CreatureController
     {
         //UpdateInput();
         MovePlayer();
-
+        CollectEnv();
     }
 
     // Simulator ¿¡¼­´Â ¾È¸ÔÈû
@@ -63,6 +66,26 @@ public class PlayerController : CreatureController
         //_moveDir = Managers.Game.MoveDir;
         Vector3 dir = _moveDir * _speed * Time.deltaTime;
         transform.position += dir;
+    }
+
+    void CollectEnv()
+    {
+        float sqrCollectDist = EnvCollectDist * EnvCollectDist;
+
+        List<GemController> gems =  Managers.Object.Gems.ToList();
+        foreach(GemController gem in gems)
+        {
+            Vector3 dir = gem.transform.position - transform.position;
+            if(dir.sqrMagnitude <= sqrCollectDist)
+            {
+                Managers.Game.Gem += 1;
+                Managers.Object.Despanw(gem);
+            }
+        }
+
+        var findGems = GameObject.Find("@Grid").GetComponent<GridController>().GatherObject(transform.position, EnvCollectDist + 0.5f);
+
+        Debug.Log($"SearchGems({findGems.Count}, TotalGems({gems.Count})");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
