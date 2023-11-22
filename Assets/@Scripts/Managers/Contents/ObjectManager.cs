@@ -6,7 +6,7 @@ public class ObjectManager
 {
     public PlayerController Player { get; private set; }
     public HashSet<MonsterController> Monsters { get; } = new HashSet<MonsterController>();
-    public HashSet<ProjectileController> Projectile { get; } = new HashSet<ProjectileController>();
+    public HashSet<ProjectileController> Projectiles { get; } = new HashSet<ProjectileController>();
     public HashSet<GemController> Gems { get; } = new HashSet<GemController>();
 
     public T Spawn<T>(Vector3 position, int templateID = 0) where T : BaseController
@@ -57,12 +57,27 @@ public class ObjectManager
 
             return gc as T;
         }
+        else if(type == typeof(ProjectileController))
+        {
+            GameObject go = Managers.Resource.Instantiate("FireProjectile.prefab", pooling: true);
+            go.transform.position = position;
+
+            ProjectileController pc = go.GetOrAddComponent<ProjectileController>();
+            Projectiles.Add(pc);
+            pc.Init();
+            return pc as T;
+        }
 
         return null;
     }
 
-    public void Despanw<T>(T obj) where T : BaseController
+    public void Despawn<T>(T obj) where T : BaseController
     {
+        if(obj.IsValid() == false)
+        {
+            // 여기 들어오면 찾아야됨
+            Debug.LogError("Despawn is not valid");
+        }
         System.Type type = typeof(T);
 
         if(type == typeof(PlayerController))
@@ -74,11 +89,6 @@ public class ObjectManager
             Monsters.Remove(obj as MonsterController);
             Managers.Resource.Destroy(obj.gameObject);
         }
-        else if(type == typeof(ProjectileController))
-        {
-            Projectile.Remove(obj as ProjectileController);
-            Managers.Resource.Destroy(obj.gameObject);
-        }
         else if(type == typeof(GemController))
         {
             Gems.Remove(obj as GemController);
@@ -86,6 +96,11 @@ public class ObjectManager
 
             // Temp
             GameObject.Find("@Grid").GetComponent<GridController>().Remove(obj.gameObject);
+        }
+        else if (type == typeof(ProjectileController))
+        {
+            Projectiles.Remove(obj as ProjectileController);
+            Managers.Resource.Destroy(obj.gameObject);
         }
     }
    

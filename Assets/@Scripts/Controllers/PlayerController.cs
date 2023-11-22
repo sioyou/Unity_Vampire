@@ -9,6 +9,11 @@ public class PlayerController : CreatureController
 
     float EnvCollectDist { get; set; } = 1.0f;
 
+    [SerializeField]
+    Transform _indicator;
+    [SerializeField]
+    Transform _fireSocket;
+
     public Vector2 MoveDir
     {
         get { return _moveDir; }
@@ -26,8 +31,11 @@ public class PlayerController : CreatureController
         if (base.Init() == false)
             return false;
 
+        _speed = 5.0f;
         Managers.Game.OnMoveDirChanged -= HandleOnMoveChanged;
         Managers.Game.OnMoveDirChanged += HandleOnMoveChanged;
+
+        StartProjectile();
 
         return true;
     }
@@ -66,6 +74,13 @@ public class PlayerController : CreatureController
         //_moveDir = Managers.Game.MoveDir;
         Vector3 dir = _moveDir * _speed * Time.deltaTime;
         transform.position += dir;
+
+        if(_moveDir != Vector2.zero)
+        {
+            _indicator.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-dir.x, dir.y) * 180 / Mathf.PI);
+        }
+
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
 
     void CollectEnv()
@@ -79,7 +94,7 @@ public class PlayerController : CreatureController
             if(dir.sqrMagnitude <= sqrCollectDist)
             {
                 Managers.Game.Gem += 1;
-                Managers.Object.Despanw(gem);
+                Managers.Object.Despawn(gem);
             }
         }
 
@@ -106,4 +121,29 @@ public class PlayerController : CreatureController
         cc?.OnDamage(this, 10000);
     }
 
+    // Temp
+    #region FireProjectile
+    Coroutine _coFireProjectile;
+    
+    void StartProjectile()
+    {
+        if (_coFireProjectile != null)
+            StopCoroutine(_coFireProjectile);
+        _coFireProjectile = StartCoroutine(CoStartProjectile());
+    }
+
+    IEnumerator CoStartProjectile()
+    {
+        WaitForSeconds wait = new WaitForSeconds(0.5f);
+
+        while(true)
+        {
+            ProjectileController pc = Managers.Object.Spawn<ProjectileController>(_fireSocket.position, 1);
+            pc.SetInfo(1, this, (_fireSocket.position - _indicator.position).normalized);
+
+            yield return wait;
+        }
+    }
+
+    #endregion
 }
