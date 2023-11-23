@@ -17,8 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 0e6cf5ff07e6d8449a7d9a17f44b90ba
   m_SerializeEntries:
-  - m_GUID: f7c8a15954abae545a07ef2671957163
-    m_Address: EXPGem_01.sprite
+  - m_GUID: b8c238b0fbe3d9644906c51b98e2ee2a
+    m_Address: EXPGem_03.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -27,8 +27,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
-  - m_GUID: b8c238b0fbe3d9644906c51b98e2ee2a
-    m_Address: EXPGem_03.sprite
+  - m_GUID: f7c8a15954abae545a07ef2671957163
+    m_Address: EXPGem_01.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

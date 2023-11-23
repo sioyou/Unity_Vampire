@@ -36,4 +36,5 @@ public static class Define
     public const int PLAYER_DATA_IO = 1;
     public const string EXP_GEM_PREFAB = "EXPGem.prefab";
 
+    public const int EGO_SWORD_ID = 10;
 }
