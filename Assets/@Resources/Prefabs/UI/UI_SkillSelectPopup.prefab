@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 1070249083755706837}
   - component: {fileID: 1070249083755706834}
   - component: {fileID: 1070249083755706835}
-  - component: {fileID: 6637896704522153549}
+  - component: {fileID: 1624080309545824261}
   m_Layer: 5
   m_Name: UI_SkillSelectPopup
   m_TagString: Untagged
@@ -585,7 +585,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6637896704522153549
+--- !u!114 &1624080309545824261
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -594,10 +594,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1070249083755706833}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0be2325f143c695469cec1c57f6d3b58, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e7a9c343e1d8ab499b527c47d3be0cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grid: {fileID: 1070249085600625429}
 --- !u!1 &1070249083795131947
 GameObject:
   m_ObjectHideFlags: 0

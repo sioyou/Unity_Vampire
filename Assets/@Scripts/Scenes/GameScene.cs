@@ -22,6 +22,8 @@ public class GameScene : MonoBehaviour
     void StartLoaded()
     {
         Managers.Data.Init();
+        Managers.UI.ShowSceneUI<UI_GameScene>();
+
         _spawningPool = gameObject.AddComponent<SpawningPool>();
 
         var player = Managers.Object.Spawn<PlayerController>(Vector3.zero);
@@ -44,6 +46,44 @@ public class GameScene : MonoBehaviour
         {
             Debug.Log($"Lv : {playerData.level}, Hp : {playerData.maxHp}");
         }
+
+        Managers.Game.OnGemCountChanged -= HandleOnGemCountChanged;
+        Managers.Game.OnGemCountChanged += HandleOnGemCountChanged;
+        Managers.Game.OnKillCountChanged += HandleOnKillCountChanged;
+        Managers.Game.OnKillCountChanged += HandleOnKillCountChanged;
+    }
+
+    public void HandleOnKillCountChanged(int killCount)
+    {
+        Managers.UI.GetSceneUI<UI_GameScene>().SetKillCount(killCount);
+
+        if(killCount == 5)
+        {
+            // Boss
+        }
+
+    }
+
+    int _collectedGemCount = 0;
+    int _remainingTotalGemCount = 10;
+    public void HandleOnGemCountChanged(int gemCount)
+    {
+        _collectedGemCount++;
+
+        if (_collectedGemCount == _remainingTotalGemCount)
+        {
+            Managers.UI.ShowPopup<UI_SkillSelectPopup>();
+            _collectedGemCount = 0;
+            _remainingTotalGemCount *= 2;
+        }
+
+        Managers.UI.GetSceneUI<UI_GameScene>().SetGemCountRatio((float)_collectedGemCount / _remainingTotalGemCount);
+    }
+
+    private void OnDestroy()
+    {
+        if (Managers.Game != null)
+            Managers.Game.OnGemCountChanged -= HandleOnGemCountChanged;
     }
 
     void StartLoaded2()
