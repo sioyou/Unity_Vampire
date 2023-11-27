@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class UI_SkillCardItem : UI_Base
 {
-    void Start()
+    // 어떤 스킬?
+    // 몇 레벨?
+    // 데이터시트?
+
+    int _templateID;
+    Data.SkillData _skillData;
+
+    public void SetInfo(int tempateID)
     {
-        
+        _templateID = tempateID;
+
+        Managers.Data.SkillDic.TryGetValue(tempateID, out _skillData);
     }
 
-    void Update()
+    public void OnClickItem()
     {
-        
+        // 스킬 레벨 업그레이드
+        Debug.Log("OnClickItem");
+        Managers.UI.ClosePopup();
     }
+
 }
