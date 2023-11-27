@@ -18,7 +18,29 @@ public class GameScene : MonoBehaviour
 
     }
     SpawningPool _spawningPool;
-    
+    Define.StageType _stageType;
+    public Define.StageType StageType
+    {
+        get { return _stageType; }
+        set
+        {
+            _stageType = value;
+
+            if(_spawningPool != null)
+            {
+                switch(value)
+                {
+                    case Define.StageType.Normal:
+                        _spawningPool.Stopped = false;
+                        break;
+                    case Define.StageType.Boss:
+                        _spawningPool.Stopped = true;
+                        break;
+                }
+            }
+        }
+    }
+
     void StartLoaded()
     {
         Managers.Data.Init();
@@ -31,7 +53,7 @@ public class GameScene : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             Vector3 randPos = new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
-            var mc = Managers.Object.Spawn<MonsterController>(randPos, Random.Range(0, 2));
+            var mc = Managers.Object.Spawn<MonsterController>(randPos, 1 + Random.Range(0, 2));
         }
 
         var joystick = Managers.Resource.Instantiate("UI_Joystick.prefab");
@@ -60,6 +82,12 @@ public class GameScene : MonoBehaviour
         if(killCount == 5)
         {
             // Boss
+            StageType = Define.StageType.Boss;
+
+            Managers.Object.DespawnAllMonster();
+
+            Vector2 spawnPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 5, 10);
+            Managers.Object.Spawn<MonsterController>(spawnPos, Define.BOSS_ID);
         }
 
     }

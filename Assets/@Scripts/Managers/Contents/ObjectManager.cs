@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ObjectManager 
@@ -29,7 +30,19 @@ public class ObjectManager
         else if(type == typeof(MonsterController))
         {
             // TODO  : Data
-            string name = (templateID == 0 ? "Goblin_01" : "Snake_01") ;
+            string name = "";
+            switch(templateID)
+            {
+                case Define.GOBLIN_ID:
+                    name = "Goblin_01";
+                    break;
+                case Define.SNAKE_ID:
+                    name = "Snake_01";
+                    break;
+                case Define.BOSS_ID:
+                    name = "Boss_01";
+                    break;
+            }
             GameObject go = Managers.Resource.Instantiate(name + ".prefab", pooling: true);
 
             go.transform.position = position;
@@ -92,6 +105,7 @@ public class ObjectManager
         {
             // 여기 들어오면 찾아야됨
             Debug.LogError("Despawn is not valid");
+            return;
         }
         System.Type type = typeof(T);
 
@@ -118,5 +132,11 @@ public class ObjectManager
             Managers.Resource.Destroy(obj.gameObject);
         }
     }
-   
+    public void DespawnAllMonster()
+    {
+        var monsters = Monsters.ToList();
+
+        foreach (var monster in monsters)
+            Despawn<MonsterController>(monster);
+    }
 }
