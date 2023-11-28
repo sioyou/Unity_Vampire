@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoisionFieldController : MonoBehaviour
+public class SequenceSkill : MonoBehaviour
 {
     void Start()
     {

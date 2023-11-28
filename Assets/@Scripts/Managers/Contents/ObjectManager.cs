@@ -72,7 +72,7 @@ public class ObjectManager
         }
         else if(type == typeof(ProjectileController))
         {
-            GameObject go = Managers.Resource.Instantiate("FireProjectile.prefab", pooling: true);
+            GameObject go = Managers.Resource.Instantiate("Fireball.prefab", pooling: true);
             go.transform.position = position;
 
             ProjectileController pc = go.GetOrAddComponent<ProjectileController>();
@@ -80,7 +80,7 @@ public class ObjectManager
             pc.Init();
             return pc as T;
         }
-        else if (typeof(T).IsSubclassOf(typeof(SkillController)))
+        else if (typeof(T).IsSubclassOf(typeof(SkillBase)))
         {
             if (Managers.Data.SkillDic.TryGetValue(templateID, out Data.SkillData skillData) == false)
             {
