@@ -14,7 +14,7 @@ public class SkillBase : BaseController
         get { return SkillLevel > 0; }
     }
 
-    public int Damage { get; set; } = 100;
+    public int Damage { get; set; } = 1;
 
     public SkillBase(Define.SkillType skillType)
     {
